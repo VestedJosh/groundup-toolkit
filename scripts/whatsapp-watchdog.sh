@@ -75,6 +75,7 @@ send_alert() {
         # Write Twilio credentials to a temp netrc file so they don't appear
         # in shell command strings, ps output, or log files.
         _twilio_netrc=$(mktemp /tmp/.twilio-netrc.XXXXXX)
+        trap 'rm -f "$_twilio_netrc"' EXIT
         chmod 600 "$_twilio_netrc"
         printf 'machine api.twilio.com\n  login %s\n  password %s\n' \
             "$TWILIO_API_KEY_SID" "$TWILIO_API_KEY_SECRET" > "$_twilio_netrc"

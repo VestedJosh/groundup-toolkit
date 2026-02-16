@@ -75,10 +75,8 @@ case "$JOB" in
         export_var TWILIO_FROM_NUMBER
         ;;
     *)
-        # Fallback: load all vars (same as before, for unknown jobs)
-        for key in "${!ALL_VARS[@]}"; do
-            export "$key"="${ALL_VARS[$key]}"
-        done
+        echo "Unknown job: $JOB — add it to load-env.sh" >&2
+        exit 1
         ;;
 esac
 
